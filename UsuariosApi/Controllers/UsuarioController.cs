@@ -26,8 +26,8 @@ public class UsuarioController : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> LoginAsync(LoginUsuarioDto dto)
     {
-        await _usuarioService.LoginAsync(dto);
+        var token = await _usuarioService.LoginAsync(dto);
 
-        return Ok("Usuário Autenticado");
+        return Ok(token);
     }
 }
