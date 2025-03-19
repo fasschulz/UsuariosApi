@@ -10,7 +10,7 @@ using UsuariosApi.Models;
 using UsuariosApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("UsuarioConnection");
+var connectionString = builder.Configuration["ConnectionStrings:UsuarioConnection"];
 // Add services to the container.
 
 builder.Services.AddDbContext<UsuarioDbContext>
@@ -42,7 +42,8 @@ builder.Services.AddAuthentication(opts =>
     opts.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ashfd839hf38fh83-42fhr-4fh4rf8348957382497d5b2348n")),
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+            builder.Configuration["SymmetricSecurityKey"])),
         ValidateAudience = false,
         ValidateIssuer = false,
         ClockSkew = TimeSpan.Zero
